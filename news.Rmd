@@ -1,0 +1,23 @@
+---
+title: "news"
+output: html_document
+date: "2024-08-12"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(httr2)
+```
+
+```{r}
+req <- request("https:///newsapi.org/v2/everything") %>%
+req_url_query(
+q = '`"data science"`',
+from = Sys.Date() - 1,
+pageSize = 10,
+apiKey = Sys.getenv("API_KEY")
+)
+
+resp <- req_perform(req)
+resp_body_json(resp)
+```
